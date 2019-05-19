@@ -13,7 +13,7 @@
    ========================================================================== */
 
 html {
-  color: #222;
+  color: black;
   font-size: 1em;
   line-height: 1.4;
 }
@@ -101,9 +101,10 @@ textarea {
   ========================================================================== */
 
 html{
+  margin: 0;
   display: grid;
-  grid-template-columns: 1fr minmax(auto, 688px) 1fr; /* 688px = 8.5in w page w 0.5in margins in firefox */
-  grid-template-rows: minmax(960px, auto); /* 960 px = 11in page w 0.5in margins in firefox */
+  grid-template-columns: 1fr minmax(auto, 8.5in) 1fr; /* 688px = 8.5in w page w 0.5in margins in firefox */
+  grid-template-rows: minmax(11in, auto); /* 960 px = 11in page w 0.5in margins in firefox */
   grid-template-areas: ". body .";
   background-color: #eeeeee;
 }
@@ -111,38 +112,51 @@ html{
 body{
   grid-area: body;
   background-color: white;
+  display: grid;
+  grid-template-columns: 8.8% auto 8.8%;
+  grid-template-rows: 0.75in auto 0.75in;
+  grid-template-areas:
+    ". .         ."
+    ". innerPage ."
+    ". .         .";
 }
 
-h2, h3, li, p {
-  margin: 0 16px;
+
+
+h1, h2, h3, li, p {
+  margin: 0;
+  font-weight: normal;
 }
 
 ul{
-  margin-top: 8px;
-  margin-bottom: 0;
+  margin: 0 0 0 0;
+  list-style: none;
+  padding: 0;
 }
 
 h1{
-  margin: 0 16px 8px 16px;
-  font-size: 44px;
+  font-size: 32px;
+  text-transform: uppercase;
+  font-weight: 500;
 }
 
 h2{
-  font-size: 28px;
+  font-size: 16px;
+  font-weight: 600;
+  padding-top: 1px;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #eeeeee, #ffffff);
+  margin-bottom: 4px;
 }
 
+h3{
+  font-size: 16px;
+  font-weight: 600;
+}
 
 p, li {
-  font-size: 15px;
+  font-size: 16px;
   line-height: 24px;
-}
-
-header {
-  grid-area: name;
-  display: flex;
-  align-self: flex-end;
-  background-color: black;
-  color: white;
 }
 
 img {
@@ -153,7 +167,123 @@ img {
   filter: grayscale(100%);
 }
 
+section {
+  z-index: 1;
+}
 
+
+/** Shared attributes **/
+
+#education ul, #experience ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+/** Contact Details **/
+
+#contactDetails {
+  grid-area: contact;
+  display: flex;
+  justify-content: flex-end;
+  z-index: 1;
+}
+
+#contactDetails ul{
+  display: flex;
+  flex-direction: column;
+}
+
+#contactDetails h2 {
+  display: none;
+}
+
+#contactDetails li{
+  white-space: nowrap;
+}
+
+#contactDetails img{
+  margin-right: 8px;
+}
+
+li#email{
+  order:1;
+}
+
+li#phone{
+  order:2;
+}
+
+li#address{
+  order: 3;
+}
+
+
+/** Header **/
+
+header {
+  grid-area: name;
+  color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  z-index: 1;
+}
+
+header p{
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+header #resume {
+  display: none;
+}
+
+/* decorative braces */
+
+#openBrace, #closedBrace{
+  font-size: 120px;
+  color: #eeeeee;
+  z-index: 0;
+}
+
+#openBrace{
+  grid-row-start: 1;
+  grid-row-end: 3;
+  grid-column: 1;
+}
+
+#closedBrace{
+  grid-row-start: -4;
+  grid-row-end: -1;
+  grid-column: 1;
+  align-self: flex-end;
+}
+
+/** Projects **/
+
+#projects {
+  grid-area: projects;
+}
+
+/** Education **/
+
+#education {
+  grid-area: education;
+}
+
+/** Skills **/
+
+#skills {
+  grid-area: skills;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+#skills h2{
+  flex-basis: 100%;
+}
 
 #skills img {
   width: 20px;
@@ -161,50 +291,6 @@ img {
   position: relative;
   top: -2px;
   left: -2px;
-}
-
-
-header #resume {
-  display: none;
-}
-
-#contactDetails {
-  grid-area: contact;
-  background-color: black;
-  color: white;
-}
-
-#contactDetails li{
-  /*font-size: 14px;*/
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-
-#contactDetails ul{
-  margin-top: 16px;
-}
-
-#contactDetails img#address, #contactDetails img#phone{
-  display: none;
-}
-
-#contactDetails img{
-
-  -webkit-filter: invert(100%);
-  margin-right: 8px;
-}
-
-#contactDetails h2 {
-  display: none;
-}
-
-#contactDetails ul, #experience ul, #education ul, #skills ul {
-  list-style: none;
-  padding: 0;
-}
-
-#skills h2{
-  margin-top: 16px;
 }
 
 #skills li > ul {
@@ -218,66 +304,64 @@ header #resume {
   padding-right: 0;
 }
 
-#summary {
-  grid-area: summary;
+#skills#GPLs {
+  grid-area: GPLs;
 }
 
-#summary h2 {
-  margin-top: 16px;
+#skills#web {
+  grid-area: web;
 }
 
-#projects {
-  grid-area: projects;
+#skills#database{
+  grid-area: database;
 }
 
-#education {
-  grid-area: education;
+#skills#tools{
+  grid-area: tools;
 }
 
-#contactDetails ul, #education ul, #experience ul {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-
-#education ul, #experience ul {
-  font-weight: bold;
-}
-
-
-#skills {
-  background-color: #dddddd;
-  grid-area: skills;
-  border: solid 1px #dddddd;
-}
-
+/** Experience **/
 
 #experience {
   grid-area: experience;
+  /*grid-row: 7/8;*/
 }
 
 #experience h3 {
   display: none;
 }
 
-#references {
-  grid-area: references;
+#experience li{
+  font-weight: bold;
 }
 
-body {
+
+/** References **/
+
+#references {
+  /*grid-row: 8/9;*/
+  grid-area: references;
+  z-index: 1;
+}
+
+/** Layout **/
+
+#innerPage{
+  grid-area: innerPage;
   font-family: 'Roboto', sans-serif;
   display: grid;
-  grid-template-columns: auto min-content;
-  grid-template-rows: min-content min-content;
+  grid-row-gap: 24px;
+  grid-template-rows: repeat(6,min-content) 1fr min-content;
   grid-template-areas:
-    "contact    contact"
-    "name       name"
-    "summary    skills"
-    "education  skills"
-    "projects   skills"
-    "experience skills"
-    "references skills"
-    ".          skills";
+    " contact   "
+    " name      "
+    " education "
+    " projects  "
+    " skills    "
+
+    " experience"
+    " .         "
+    " references"
 }
 
 
